@@ -2,6 +2,20 @@ const express = require("express");
 const dotenv = require('dotenv')
 const app = express();
 const cors = require('cors')
+const WHITELIST = [
+    'https://fe-20215035.web.app'
+]
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (WHITELIST.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    optionsSuccessStatus: 200
+}
 
 app.use(cors())
 //middleware
